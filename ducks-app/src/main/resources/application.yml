@@ -1,0 +1,26 @@
+spring:
+  mvc:
+    # Public path to serve static resources
+    static-path-pattern: /resources/**
+  web:
+    resources:
+      # Where to find the static resources on the classpath
+      static-locations: classpath:/webpack/
+      cache:
+        cachecontrol:
+          max-age: 31536000
+  flyway:
+    default-schema: ducks
+    schemas: ducks
+  security:
+    user:
+      name: user
+      password: password
+
+logging:
+  level:
+    root : info
+    com.mitchellbosecke : debug
+
+server:
+  port: 5000

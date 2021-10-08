@@ -1,0 +1,51 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.mitchellbosecke'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+// Build the frontend whenever we build this subproject
+processResources.dependsOn ':ducks-frontend:build'
+
+// Include resources from the frontend's output
+sourceSets {
+    main {
+        resources {
+            srcDirs += [ "${project(':ducks-frontend').projectDir}/build" ]
+        }
+    }
+}
+
+dependencies {
+
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Misc
+    implementation 'org.flywaydb:flyway-core:7.9.1'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // Scheduled job locking
+//    implementation 'net.javacrumbs.shedlock:shedlock-spring:4.24.0'
+//    implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.24.0'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.10.0'
+}
+
+test {
+    useJUnitPlatform()
+}

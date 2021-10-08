@@ -1,0 +1,4 @@
+rootProject.name = 'ducks'
+include 'ducks-app'
+include 'ducks-frontend'
+

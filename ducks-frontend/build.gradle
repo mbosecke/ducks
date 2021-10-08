@@ -1,0 +1,17 @@
+plugins {
+    id "com.github.node-gradle.node" version "3.0.1"
+    id 'base'
+}
+
+// runs webpack after npmInstall
+task webpack(type: NpxTask) {
+    dependsOn npmInstall
+    command = 'webpack'
+}
+
+build.dependsOn webpack
+
+node {
+    version = '16.2.0'
+    download = true
+}
