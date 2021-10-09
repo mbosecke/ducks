@@ -27,8 +27,13 @@ public class FeedingDto {
     public FeedingDto() {
     }
 
-    public FeedingDto(Feeding feeding) {
-
+    public FeedingDto(LocalDateTime feedingTime, String timezone, String food, String location, int numberOfDucks, int quantityCups) {
+        this.feedingTime = feedingTime;
+        this.timezone = timezone;
+        this.food = food;
+        this.location = location;
+        this.numberOfDucks = numberOfDucks;
+        this.quantityCups = quantityCups;
     }
 
     public LocalDateTime getFeedingTime() {

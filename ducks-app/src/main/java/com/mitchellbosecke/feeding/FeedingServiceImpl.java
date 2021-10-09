@@ -25,7 +25,11 @@ public class FeedingServiceImpl implements FeedingService {
     }
 
     @Override
-    public void add(FeedingDto feedingDto) {
+    public Feeding add(FeedingDto feedingDto) {
+
+        if (feedingDto.getTimezone() == null) {
+            throw new RuntimeException("Timezone must be provided");
+        }
         ZoneId timezone = ZoneId.of(feedingDto.getTimezone());
 
         Feeding feeding = new Feeding();
@@ -38,5 +42,6 @@ public class FeedingServiceImpl implements FeedingService {
         feeding.setQuantityCups(feedingDto.getQuantityCups());
 
         feedingRepository.save(feeding);
+        return feeding;
     }
 }
