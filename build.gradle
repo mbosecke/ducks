@@ -5,9 +5,3 @@ plugins {
 allprojects{
 
 }
-
-//apply from: file('gradle/heroku/clean.gradle')
-//
-//subprojects{
-//	apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
-//}
