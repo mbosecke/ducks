@@ -1,7 +1,9 @@
 import React from 'react';
 import {Box} from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-export default function Card({children, ...passThroughProps}) {
+function Card({children, ...passThroughProps}) {
+
     return (
         <Box
              padding="3"
@@ -13,3 +15,9 @@ export default function Card({children, ...passThroughProps}) {
         </Box>
     );
 }
+
+Card.propTypes = {
+    children : PropTypes.node
+}
+
+export default Card;
