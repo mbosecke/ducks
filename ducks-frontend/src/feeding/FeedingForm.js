@@ -14,6 +14,7 @@ import axios from "axios";
 import ValidationError from "../components/ValidationError";
 import useSuccessToast from "../components/useSuccessToast";
 import useErrorToast from "../components/useErrorToast";
+import {currentDateTimeLocal} from "../utils/dateUtils";
 
 export default function FeedingForm() {
 
@@ -34,6 +35,7 @@ export default function FeedingForm() {
             })
         });
 
+    const now = currentDateTimeLocal();
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     return (
@@ -43,9 +45,9 @@ export default function FeedingForm() {
 
                 <FormControl id="feedingTime">
                     <FormLabel htmlFor="feedingTime">Date and time</FormLabel>
-                    <Input placeholder="Date" type="datetime-local" {...register("feedingTime", {required: true})} />
+                    <Input placeholder="Date" type="datetime-local" defaultValue={now} {...register("feedingTime", {required: true})} />
                     {errors.feedingTime && <ValidationError/>}
-                    <FormHelperText>The date and time that feeding began.</FormHelperText>
+                    <FormHelperText>The date and time that feeding began. Timezone: {timezone}</FormHelperText>
                 </FormControl>
 
                 <input type="hidden" defaultValue={timezone} {...register("timezone")} />
