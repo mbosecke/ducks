@@ -3,6 +3,13 @@
 A simple application to understand how ducks are being 
 fed in parks around the world. 
 
+# Organization
+
+The project is divided into two subprojects:
+
+* ducks-frontend: A react based frontend.
+* ducks-app: A spring/java based backend.
+
 
 # Future Wishlist
 
