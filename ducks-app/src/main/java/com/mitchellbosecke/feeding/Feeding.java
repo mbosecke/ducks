@@ -1,5 +1,7 @@
 package com.mitchellbosecke.feeding;
 
+import com.mitchellbosecke.users.User;
+
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
@@ -11,8 +13,9 @@ public class Feeding {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     @Column
     private OffsetDateTime dateEntered;
@@ -41,12 +44,12 @@ public class Feeding {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public OffsetDateTime getDateEntered() {

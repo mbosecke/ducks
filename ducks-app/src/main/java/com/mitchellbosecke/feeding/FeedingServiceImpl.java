@@ -1,5 +1,6 @@
 package com.mitchellbosecke.feeding;
 
+import com.mitchellbosecke.users.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.TimeZone;
 
 @Service
 @Transactional
@@ -19,9 +18,12 @@ public class FeedingServiceImpl implements FeedingService {
 
     private final FeedingRepository feedingRepository;
 
+    private final UserService userService;
+
     @Autowired
-    public FeedingServiceImpl(FeedingRepository feedingRepository) {
+    public FeedingServiceImpl(FeedingRepository feedingRepository, UserService userService) {
         this.feedingRepository = feedingRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class FeedingServiceImpl implements FeedingService {
         ZoneId timezone = ZoneId.of(feedingDto.getTimezone());
 
         Feeding feeding = new Feeding();
-        feeding.setUserId("??");
+        feeding.setUser(userService.getLoggedInUser());
         feeding.setDateEntered(OffsetDateTime.now());
         feeding.setFeedingTime(feedingDto.getFeedingTime().atZone(timezone).toOffsetDateTime());
         feeding.setFood(feedingDto.getFood());

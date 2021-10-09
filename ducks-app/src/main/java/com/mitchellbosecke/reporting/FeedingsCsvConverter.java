@@ -24,6 +24,7 @@ public class FeedingsCsvConverter {
 
             csvPrinter.printRecord(
                     "ID",
+                    "Username",
                     "Date Entered",
                     "Feeding Time",
                     "Food",
@@ -34,6 +35,7 @@ public class FeedingsCsvConverter {
             for (Feeding feeding : feedings) {
                 List<String> data = Arrays.asList(
                         String.valueOf(feeding.getId()),
+                        feeding.getUser().getUsername(),
                         String.valueOf(feeding.getDateEntered()),
                         String.valueOf(feeding.getFeedingTime()),
                         feeding.getFood(),
