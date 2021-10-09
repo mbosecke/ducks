@@ -34,7 +34,9 @@ dependencies {
 
     // Misc
     implementation 'org.flywaydb:flyway-core:7.9.1'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
     runtimeOnly 'org.postgresql:postgresql'
+
 
     // Scheduled job locking
 //    implementation 'net.javacrumbs.shedlock:shedlock-spring:4.24.0'
