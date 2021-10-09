@@ -26,7 +26,6 @@ public class FeedingServiceImpl implements FeedingService {
 
     @Override
     public void add(FeedingDto feedingDto) {
-        //TimeZone timezone = TimeZone.getTimeZone(feedingDto.getTimezone());
         ZoneId timezone = ZoneId.of(feedingDto.getTimezone());
 
         Feeding feeding = new Feeding();

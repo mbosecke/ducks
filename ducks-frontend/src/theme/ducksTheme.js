@@ -4,15 +4,10 @@ import colors from './colors.js';
 import styles from './styles.js';
 import fonts from './fonts.js';
 
-import Link from './components/link';
-
 const ducksTheme = extendTheme({
     colors,
     styles,
-    fonts,
-    components : {
-        Link
-    }
+    fonts
 });
 
 export default ducksTheme;
