@@ -1,5 +1,7 @@
 package com.mitchellbosecke.feeding;
 
+import com.mitchellbosecke.users.User;
+import com.mitchellbosecke.users.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,14 +13,16 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FeedingServiceImplTest {
 
     @Mock
     private FeedingRepository feedingRepository;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private FeedingServiceImpl feedingService;
@@ -27,22 +31,31 @@ public class FeedingServiceImplTest {
     public void add_shouldSaveToRepository() {
 
         FeedingDto dto = new FeedingDto(LocalDateTime.now(), "America/Edmonton", "food", "location", 1, 2);
+        when(userService.getLoggedInUser()).thenReturn(new User("mitchell"));
         Feeding feeding = feedingService.add(dto);
         verify(feedingRepository, times(1)).save(any(Feeding.class));
-
-        assertNotNull(feeding.getUserId());
     }
 
     @Test
     public void add_shouldMapFieldsCorrectly() {
 
         FeedingDto dto = new FeedingDto(LocalDateTime.now(), "America/Edmonton", "food", "location", 1, 2);
+        when(userService.getLoggedInUser()).thenReturn(new User("mitchell"));
         Feeding feeding = feedingService.add(dto);
 
         assertEquals("food", feeding.getFood());
         assertEquals("location", feeding.getLocation());
         assertEquals(1, feeding.getNumberOfDucks());
         assertEquals(2, feeding.getQuantityCups());
+    }
+
+    @Test
+    public void add_shouldSaveCurrentUsersUsername() {
+
+        FeedingDto dto = new FeedingDto(LocalDateTime.now(), "America/Edmonton", "food", "location", 1, 2);
+        when(userService.getLoggedInUser()).thenReturn(new User("mitchell"));
+        Feeding feeding = feedingService.add(dto);
+        assertEquals("mitchell", feeding.getUser().getUsername());
     }
 
     @Test
