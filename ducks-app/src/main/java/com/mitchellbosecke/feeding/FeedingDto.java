@@ -3,12 +3,14 @@ package com.mitchellbosecke.feeding;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 public class FeedingDto {
 
     @NotNull
     private LocalDateTime feedingTime;
+
+    @NotBlank
+    private String timezone;
 
     @NotBlank
     private String food;
@@ -35,6 +37,14 @@ public class FeedingDto {
 
     public void setFeedingTime(LocalDateTime feedingTime) {
         this.feedingTime = feedingTime;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
     public String getFood() {

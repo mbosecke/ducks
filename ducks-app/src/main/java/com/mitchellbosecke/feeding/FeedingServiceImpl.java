@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.TimeZone;
 
 @Service
 @Transactional
@@ -24,10 +26,13 @@ public class FeedingServiceImpl implements FeedingService {
 
     @Override
     public void add(FeedingDto feedingDto) {
+        //TimeZone timezone = TimeZone.getTimeZone(feedingDto.getTimezone());
+        ZoneId timezone = ZoneId.of(feedingDto.getTimezone());
+
         Feeding feeding = new Feeding();
         feeding.setUserId("??");
         feeding.setDateEntered(OffsetDateTime.now());
-        feeding.setFeedingTime(feedingDto.getFeedingTime().atOffset(ZoneOffset.UTC));
+        feeding.setFeedingTime(feedingDto.getFeedingTime().atZone(timezone).toOffsetDateTime());
         feeding.setFood(feedingDto.getFood());
         feeding.setLocation(feedingDto.getLocation());
         feeding.setNumberOfDucks(feedingDto.getNumberOfDucks());
