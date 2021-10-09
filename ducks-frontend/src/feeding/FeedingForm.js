@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Button,
     FormControl,
@@ -9,44 +10,13 @@ import {
     InputRightAddon,
     Stack
 } from "@chakra-ui/react";
-import {useForm} from "react-hook-form";
-import axios from "axios";
 import ValidationError from "../components/ValidationError";
-import useSuccessToast from "../components/useSuccessToast";
-import useErrorToast from "../components/useErrorToast";
-import {currentDateTimeLocal, currentTimeZone} from "../utils/dateUtils";
 
-function FeedingForm() {
-
-    // Success/Error toast handling
-    const successToast = useSuccessToast();
-    const errorToast = useErrorToast();
-
-    // Current date, time, and timezone
-    const now = currentDateTimeLocal();
-    const timezone = currentTimeZone();
-
-    // Form handlers
-    const {register, handleSubmit, reset, formState: {errors}} = useForm();
-
-    // Submit functionality
-    const onSubmit = data => axios.post('/api/feeding', data)
-        .then(() => {
-            reset();
-            successToast({
-                title: 'Feeding saved',
-                description: 'Duck feeding has been saved. Thank you!'
-            });
-        }).catch(error => {
-            errorToast({
-                description: error.message
-            })
-        });
-
+function FeedingForm({register, onSubmit, errors, now, timezone}) {
 
     return (
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
             <Stack spacing={6}>
 
                 <FormControl id="feedingTime">
@@ -96,6 +66,14 @@ function FeedingForm() {
             </Stack>
         </form>
     );
+}
+
+FeedingForm.propTypes = {
+    register : PropTypes.func.isRequired,
+    onSubmit : PropTypes.func.isRequired,
+    errors : PropTypes.object,
+    now : PropTypes.string.isRequired,
+    timezone : PropTypes.string.isRequired
 }
 
 export default FeedingForm;

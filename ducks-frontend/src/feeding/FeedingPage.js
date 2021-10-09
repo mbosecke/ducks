@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Heading, Stack} from "@chakra-ui/react";
 import Card from "../components/Card";
-import FeedingForm from "./FeedingForm";
+import FeedingFormContainer from "./FeedingFormContainer";
 
 export default function FeedingPage() {
 
@@ -12,7 +12,7 @@ export default function FeedingPage() {
 
                 <Card>
                     <Heading as="h3" size="md" marginBottom="3">Submit new duck feeding</Heading>
-                    <FeedingForm />
+                    <FeedingFormContainer />
                 </Card>
             </Stack>
         </Container>
