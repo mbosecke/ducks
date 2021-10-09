@@ -34,11 +34,11 @@ it('Renders food validation errors', () => {
 
 it('Invokes onSubmit when submit button is pressed', () => {
 
-    let invocations = 0;
+    const handleSubmit = jest.fn(e => e.preventDefault());
     render(
         <FeedingForm
             register={() => {}}
-            onSubmit={() => invocations++}
+            onSubmit={handleSubmit}
             errors={{}}
             now={""}
             timezone={""}
@@ -46,5 +46,5 @@ it('Invokes onSubmit when submit button is pressed', () => {
     const submitButton = screen.getByText("Submit");
     userEvent.click(submitButton);
 
-    expect(invocations).toStrictEqual(1);
+    expect(handleSubmit.mock.calls.length).toBe(1);
 });
