@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Button,
     FormControl,
+    FormErrorMessage,
     FormHelperText,
     FormLabel,
     Input,
@@ -10,7 +11,6 @@ import {
     InputRightAddon,
     Stack
 } from "@chakra-ui/react";
-import ValidationError from "../components/ValidationError";
 
 function FeedingForm({register, onSubmit, errors, now, timezone}) {
 
@@ -19,45 +19,56 @@ function FeedingForm({register, onSubmit, errors, now, timezone}) {
         <form onSubmit={onSubmit}>
             <Stack spacing={6}>
 
-                <FormControl id="feedingTime">
+                <FormControl isInvalid={errors.feedingTime} isRequired>
                     <FormLabel htmlFor="feedingTime">Date and time</FormLabel>
-                    <Input placeholder="Date" type="datetime-local" defaultValue={now} {...register("feedingTime", {required: true})} />
-                    {errors.feedingTime && <ValidationError/>}
+                    <Input id="feedingTime"
+                           placeholder="Date"
+                           type="datetime-local"
+                           defaultValue={now}
+                           {...register("feedingTime", {required: true})}
+                    />
+                    <FormErrorMessage>{errors.feedingTime}</FormErrorMessage>
                     <FormHelperText>The date and time that feeding began. Timezone: {timezone}</FormHelperText>
                 </FormControl>
 
                 <input type="hidden" defaultValue={timezone} {...register("timezone")} />
 
-                <FormControl id="food">
+                <FormControl isInvalid={errors.food} isRequired>
                     <FormLabel htmlFor="food">Food</FormLabel>
-                    <Input placeholder="Food" {...register("food", {required: true})} />
-                    {errors.food && <ValidationError/>}
+                    <Input id="food" placeholder="Food" {...register("food", {required: true})} />
+                    <FormErrorMessage>{errors.food}</FormErrorMessage>
                     <FormHelperText>The brand and type of food used.</FormHelperText>
                 </FormControl>
 
-                <FormControl id="location">
+                <FormControl isInvalid={errors.location} isRequired>
                     <FormLabel htmlFor="location">Location</FormLabel>
-                    <Input placeholder="Location" {...register("location", {required: true})} />
-                    {errors.location && <ValidationError/>}
+                    <Input id="location" placeholder="Location" {...register("location", {required: true})} />
+                    <FormErrorMessage>{errors.location}</FormErrorMessage>
                     <FormHelperText>The location (ex. park) where the ducks were fed.</FormHelperText>
                 </FormControl>
 
-                <FormControl id="numberOfDucks">
+                <FormControl isInvalid={errors.numberOfDucks} isRequired>
                     <FormLabel htmlFor="numberOfDucks">Number of ducks</FormLabel>
-                    <Input placeholder="Number of ducks"
-                           type="number" {...register("numberOfDucks", {required: true})}  />
-                    {errors.numberOfDucks && <ValidationError/>}
+                    <Input id="numberOfDucks"
+                           placeholder="Number of ducks"
+                           type="number"
+                           {...register("numberOfDucks", {required: true})}
+                    />
+                    <FormErrorMessage>{errors.numberOfDucks}</FormErrorMessage>
                     <FormHelperText>Approximate number of ducks.</FormHelperText>
                 </FormControl>
 
-                <FormControl id="quantityCups">
+                <FormControl  isInvalid={errors.quantityCups} isRequired>
                     <FormLabel htmlFor="quantityCups">Quantity of food</FormLabel>
                     <InputGroup>
-                        <Input placeholder="How much food"
-                               type="number" {...register("quantityCups", {required: true})} />
+                        <Input id="quantityCups"
+                               placeholder="How much food"
+                               type="number"
+                               {...register("quantityCups", {required: true})}
+                        />
                         <InputRightAddon children="cups"/>
                     </InputGroup>
-                    {errors.quantityCups && <ValidationError/>}
+                    <FormErrorMessage>{errors.numberOfDucks}</FormErrorMessage>
                     <FormHelperText>Approximate number of cups of food distributed (1 cup = 240
                         ml).</FormHelperText>
                 </FormControl>
@@ -71,7 +82,7 @@ function FeedingForm({register, onSubmit, errors, now, timezone}) {
 FeedingForm.propTypes = {
     register : PropTypes.func.isRequired,
     onSubmit : PropTypes.func.isRequired,
-    errors : PropTypes.object,
+    errors : PropTypes.object.isRequired,
     now : PropTypes.string.isRequired,
     timezone : PropTypes.string.isRequired
 }
