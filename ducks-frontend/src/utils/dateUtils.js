@@ -1,5 +1,9 @@
 
 
+export function currentTimeZone(){
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 export function currentDateTimeLocal(){
     const now = new Date();
 

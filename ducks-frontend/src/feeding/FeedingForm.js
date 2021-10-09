@@ -14,16 +14,24 @@ import axios from "axios";
 import ValidationError from "../components/ValidationError";
 import useSuccessToast from "../components/useSuccessToast";
 import useErrorToast from "../components/useErrorToast";
-import {currentDateTimeLocal} from "../utils/dateUtils";
+import {currentDateTimeLocal, currentTimeZone} from "../utils/dateUtils";
 
-export default function FeedingForm() {
+function FeedingForm() {
 
+    // Success/Error toast handling
     const successToast = useSuccessToast();
     const errorToast = useErrorToast();
 
+    // Current date, time, and timezone
+    const now = currentDateTimeLocal();
+    const timezone = currentTimeZone();
+
+    // Form handlers
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
+
+    // Submit functionality
     const onSubmit = data => axios.post('/api/feeding', data)
-        .then(response => {
+        .then(() => {
             reset();
             successToast({
                 title: 'Feeding saved',
@@ -35,8 +43,6 @@ export default function FeedingForm() {
             })
         });
 
-    const now = currentDateTimeLocal();
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     return (
 
@@ -74,7 +80,7 @@ export default function FeedingForm() {
                     <FormHelperText>Approximate number of ducks.</FormHelperText>
                 </FormControl>
 
-                <FormControl id="quantity_cups">
+                <FormControl id="quantityCups">
                     <FormLabel htmlFor="quantityCups">Quantity of food</FormLabel>
                     <InputGroup>
                         <Input placeholder="How much food"
@@ -91,3 +97,5 @@ export default function FeedingForm() {
         </form>
     );
 }
+
+export default FeedingForm;
