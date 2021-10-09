@@ -12,6 +12,8 @@ spring:
   flyway:
     default-schema: ducks
     schemas: ducks
+  datasoure:
+    schema: ducks
 
 logging:
   level:
