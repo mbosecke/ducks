@@ -12,10 +12,6 @@ spring:
   flyway:
     default-schema: ducks
     schemas: ducks
-  security:
-    user:
-      name: user
-      password: password
 
 logging:
   level:
