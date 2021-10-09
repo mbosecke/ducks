@@ -1,0 +1,32 @@
+# About
+
+A simple application to understand how ducks are being 
+fed in parks around the world. 
+
+
+# Future Wishlist
+
+* Repeating schedule for feedings.
+* Autocomplete for the "food" input to help normalize the data.
+* A method to normalize the "location" input (autocomplete or location API).
+* User interface for reporting.
+* More testing of mobile support.
+* More testing of accessibility support.
+
+# Building
+```
+./gradlew clean build
+```
+
+# Running tests
+
+Frontend:
+```
+cd ducks-frontend
+npm test
+```
+
+Backend:
+```
+./gradlew :ducks-app:test
+```
