@@ -24,6 +24,8 @@ public class FeedingDto {
     @NotNull
     private Integer quantityCups;
 
+    private Integer repeatsEveryXDays;
+
     public FeedingDto() {
     }
 
@@ -82,5 +84,13 @@ public class FeedingDto {
 
     public void setQuantityCups(Integer quantityCups) {
         this.quantityCups = quantityCups;
+    }
+
+    public Integer getRepeatsEveryXDays() {
+        return repeatsEveryXDays;
+    }
+
+    public void setRepeatsEveryXDays(Integer repeatsEveryXDays) {
+        this.repeatsEveryXDays = repeatsEveryXDays;
     }
 }

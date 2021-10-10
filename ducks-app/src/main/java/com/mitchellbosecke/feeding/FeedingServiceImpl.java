@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.List;
 
 @Service
 @Transactional
@@ -42,8 +45,46 @@ public class FeedingServiceImpl implements FeedingService {
         feeding.setLocation(feedingDto.getLocation());
         feeding.setNumberOfDucks(feedingDto.getNumberOfDucks());
         feeding.setQuantityCups(feedingDto.getQuantityCups());
+        feeding.setRepeatsEveryXDays(feedingDto.getRepeatsEveryXDays());
 
         feedingRepository.save(feeding);
         return feeding;
     }
+
+    @Override
+    public void addRepeatFeedings() {
+
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Feeding> repeatFeedings = feedingRepository.findRepeatFeedings();
+
+        for(Feeding original : repeatFeedings){
+            logger.debug("Cloning original feeding with ID [" + original.getId() + "]");
+
+            OffsetDateTime newFeedingTime = getNewFeedingTimeForRepeatFeeding(original.getFeedingTime());
+            Feeding clone = new Feeding();
+            clone.setUser(original.getUser());
+            clone.setDateEntered(now);
+            clone.setFeedingTime(newFeedingTime);
+            clone.setFood(original.getFood());
+            clone.setLocation(original.getLocation());
+            clone.setNumberOfDucks(original.getNumberOfDucks());
+            clone.setQuantityCups(original.getQuantityCups());
+            clone.setRepeatsEveryXDays(null);
+            clone.setClonedFromFeeding(original);
+            feedingRepository.save(clone);
+        }
+    }
+
+    private OffsetDateTime getNewFeedingTimeForRepeatFeeding(OffsetDateTime original){
+        int hour = original.getHour();
+        int minute = original.getMinute();
+        int second = original.getSecond();
+        OffsetDateTime newFeedingTime = OffsetDateTime.now();
+        newFeedingTime = newFeedingTime.withHour(hour);
+        newFeedingTime = newFeedingTime.withMinute(minute);
+        newFeedingTime = newFeedingTime.withSecond(second);
+        return newFeedingTime;
+    }
+
+
 }

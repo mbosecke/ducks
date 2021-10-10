@@ -35,6 +35,13 @@ public class Feeding {
     @Column
     private Integer quantityCups;
 
+    @Column(name="repeats_every_x_days")
+    private Integer repeatsEveryXDays;
+
+    @ManyToOne
+    @JoinColumn(name = "cloned_from_feeding_id")
+    private Feeding clonedFromFeeding;
+
 
     public long getId() {
         return id;
@@ -99,5 +106,21 @@ public class Feeding {
 
     public void setQuantityCups(Integer quantityCups) {
         this.quantityCups = quantityCups;
+    }
+
+    public Integer getRepeatsEveryXDays() {
+        return repeatsEveryXDays;
+    }
+
+    public void setRepeatsEveryXDays(Integer repeatsEveryXDays) {
+        this.repeatsEveryXDays = repeatsEveryXDays;
+    }
+
+    public Feeding getClonedFromFeeding() {
+        return clonedFromFeeding;
+    }
+
+    public void setClonedFromFeeding(Feeding clonedFromFeeding) {
+        this.clonedFromFeeding = clonedFromFeeding;
     }
 }

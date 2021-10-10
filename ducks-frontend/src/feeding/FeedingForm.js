@@ -73,6 +73,20 @@ function FeedingForm({register, onSubmit, errors, now, timezone}) {
                         ml).</FormHelperText>
                 </FormControl>
 
+                <FormControl>
+                    <FormLabel htmlFor="repeatsEveryXDays">Auto-repeating</FormLabel>
+                    <InputGroup>
+                        <Input id="repeatsEveryXDays"
+                               placeholder="How often to automatically repeat this feeding"
+                               type="number"
+                               {...register("repeatsEveryXDays")}
+                        />
+                        <InputRightAddon children="days"/>
+                    </InputGroup>
+                    <FormErrorMessage>{errors.repeatsEveryXDays}</FormErrorMessage>
+                    <FormHelperText>For example, enter "1" for every day or "7" for once a week.</FormHelperText>
+                </FormControl>
+
                 <Button colorScheme="blue" type="submit">Submit</Button>
             </Stack>
         </form>
