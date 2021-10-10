@@ -13,7 +13,6 @@ The project is divided into two subprojects:
 
 # Future Wishlist
 
-* Repeating schedule for feedings.
 * Autocomplete for the "food" input to help normalize the data.
 * A method to normalize the "location" input (autocomplete or location API).
 * User interface for reporting.
